@@ -4,5 +4,8 @@ node_js:
 
 script: npm test
 
-before_install:
-  - apt-get install poppler-utils
+#: http://docs.travis-ci.com/user/apt/
+addons:
+  apt:
+    packages:
+    - poppler-utils
