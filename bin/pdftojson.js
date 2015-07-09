@@ -18,11 +18,11 @@ var fs = require('fs'),
     pdfFileName = argv._[0],
     jsonFileName = argv.output || pdfFileName.replace(/\.pdf$/i, '.json');
 
-pdftojson(pdfFileName, argv).then(function(data){
+pdftojson(pdfFileName, argv).then(function(data) {
   fs.writeFileSync(jsonFileName, JSON.stringify(data));
-}).catch(function(err){
+}).catch(function(err) {
   console.error(err);
-  if(err.stack){
+  if (err.stack) {
     console.error(err.stack);
   }
 });

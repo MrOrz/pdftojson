@@ -6,7 +6,8 @@
   "scripts": {
     "watch": "npm run build -- --watch --source-maps inline",
     "build": "babel src --out-dir lib --stage $npm_package_config_stage --optional runtime",
-    "test": "mocha --require ./config/mocha-babel test/unit/*.js"
+    "test": "mocha --require ./config/mocha-babel test/unit/*.js",
+    "jscs": "jscs . -x"
   },
   "config": {
     "stage": "1"
@@ -38,6 +39,8 @@
     "babel-runtime": "^5.6.15",
     "chai": "^3.0.0",
     "chai-as-promised": "^5.1.0",
+    "esprima-fb": "^15001.1.0-dev-harmony-fb",
+    "jscs": "^1.13.1",
     "mocha": "^2.2.5"
   }
 }

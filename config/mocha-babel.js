@@ -1,7 +1,7 @@
 // ChaiAsPromised setup
 //
-var chai = require("chai");
-var chaiAsPromised = require("chai-as-promised");
+var chai = require('chai'),
+    chaiAsPromised = require('chai-as-promised');
 
 chai.use(chaiAsPromised);
 
@@ -16,8 +16,8 @@ require('babel/register')({
 // Unhandled rejection handling
 //
 process.on('unhandledRejection', function(reason) {
-  console.log("Unhandled Rejection, reason:", reason);
-  if(reason.stack) {
+  console.log('Unhandled Rejection, reason:', reason);
+  if (reason.stack) {
     console.err(reason.stack);
   }
 });

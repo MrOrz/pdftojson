@@ -1,0 +1,11 @@
+{
+  "preset": "google",
+  "excludeFiles": ["node_modules/**", "lib/**"],
+  "esprima": "esprima-fb",
+  "esnext": true,
+
+  "maximumLineLength": null,
+  "disallowMultipleVarDecl": null,
+  "requireMultipleVarDecl": true,
+  "validateQuoteMarks": { "mark": "'", "escape": true }
+}
