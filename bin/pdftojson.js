@@ -8,6 +8,9 @@ var fs = require('fs'),
       .describe('sort', 'Ignores pdftotext\'s layout unfolding and sort the words according to their coordinates.')
       .default('output', null, 'Output JSON file name')
       .alias('output', 'o')
+      .default('config', 'Command line params to pass to `pdftotext`. Note: `-bbox` is enforced.')
+      .alias('config', 'c')
+      .example('$0 -c "-f 3 -l 6" YourPDF.pdf', 'Only process page 3 ~ 6 of YourPDF.pdf.')
       .demand(1, 1)
       .epilog('Additional params will be passed to pdftojson.')
       .argv,
