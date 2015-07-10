@@ -12,9 +12,15 @@ class Text {
   constructor (xMin, xMax, yMin, yMax, text = '') {
     this.xMin = +xMin; this.xMax = +xMax;
     this.yMin = +yMin; this.yMax = +yMax;
-    this.width = xMax - xMin;
-    this.height = yMax - yMin;
     this.text = text;
+  }
+
+  get width() {
+    return this.xMax - this.xMin;
+  }
+
+  get height() {
+    return this.yMax - this.yMin;
   }
 }
 
