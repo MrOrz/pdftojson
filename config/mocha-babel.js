@@ -10,7 +10,8 @@ chai.use(chaiAsPromised);
 var STAGE = require('../package.json').config.stage;
 
 require('babel/register')({
-  stage: STAGE
+  stage: STAGE,
+  sourceMaps: 'inline'
 });
 
 // Unhandled rejection handling
