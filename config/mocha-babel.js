@@ -11,7 +11,8 @@ var STAGE = require('../package.json').config.stage;
 
 require('babel/register')({
   stage: STAGE,
-  sourceMaps: 'inline'
+  sourceMaps: 'inline',
+  optional: ['runtime']
 });
 
 // Unhandled rejection handling
