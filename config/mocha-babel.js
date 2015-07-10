@@ -16,6 +16,7 @@ require('babel/register')({
 
 // Unhandled rejection handling
 //
+/* istanbul ignore next */
 process.on('unhandledRejection', function(reason) {
   console.log('Unhandled Rejection, reason:', reason);
   if (reason.stack) {
