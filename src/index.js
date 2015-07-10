@@ -1,5 +1,6 @@
-import promisify from 'es6-promisify';
 import wrapper from './pdftotext-wrapper';
+import parser from './parser';
+import {removeDuplicateWords, mergeWordsInLines} from './processor';
 
 // Unhandled rejection handling
 //
@@ -13,6 +14,14 @@ process.on('unhandledRejection', (reason) => {
 // Main processor
 //
 export default async function pdftojson(pdfFileName, options = {}) {
-  var htmlData = await wrapper(pdfFileName, options.config);
-  return htmlData;
+  var htmlData, pages;
+
+  htmlData = await wrapper(pdfFileName, options.config);
+  pages = parser.parse(htmlData);
+
+  // pages.forEach(page => {
+  //   page.words = mergeWordsInLines(removeDuplicateWords(page.words));
+  // });
+
+  return pages;
 }
