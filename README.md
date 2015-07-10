@@ -41,6 +41,8 @@ pdftojson("./some.pdf").then((output) => {
 
 ### Output format
 
+All numeric values are in `pt`.
+
 ```
 [
     { #: Page
