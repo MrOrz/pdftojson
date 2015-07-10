@@ -8,10 +8,10 @@ import {exec} from 'child_process';
 const TAG = 'pdftotext',
       debug = require('debug')(TAG);
 
-export default function pdftotext(fileName, options = {}) {
+export default function pdftotext(fileName, config = '') {
 
   return new Promise((resolve, reject) => {
-    var childProcess = exec(`pdftotext -bbox ${options.config || ''} "${fileName}" -`, (err, stdout) => {
+    var childProcess = exec(`pdftotext -bbox ${config} "${fileName}" -`, (err, stdout) => {
       if (err) {
         reject(err);
         return;
