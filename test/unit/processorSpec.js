@@ -28,7 +28,7 @@ describe('processor', () => {
       [1, 3, 4].forEach((idx) => {
         expect(OUTPUT[idx].width).to.be.below(input[idx].width);
         expect(OUTPUT[idx].xMin).to.be.above(input[idx].xMin);
-      })
+      });
     });
 
     it('should remove empty words after duplication removal', () => {
