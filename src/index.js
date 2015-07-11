@@ -4,6 +4,7 @@ import {removeDuplicateWords, mergeWordsInLines} from './processor';
 
 // Unhandled rejection handling
 //
+/* istanbul ignore next */
 process.on('unhandledRejection', (reason) => {
   console.log('Unhandled Rejection, reason:', reason);
   if (reason.stack) {
