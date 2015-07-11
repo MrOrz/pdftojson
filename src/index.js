@@ -17,7 +17,7 @@ process.on('unhandledRejection', (reason) => {
 export default async function pdftojson(pdfFileName, options = {}) {
   var htmlData, pages;
 
-  htmlData = await wrapper(pdfFileName, options.config);
+  htmlData = await wrapper(pdfFileName, options.cmd);
   pages = parser.parse(htmlData);
   pages.forEach(page => {
     page.words = mergeWordsInLines(removeDuplicateWords(page.words));

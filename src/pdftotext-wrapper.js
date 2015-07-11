@@ -10,11 +10,11 @@ import tmp from 'tmp';
 const TAG = 'pdftotext',
       debug = require('debug')(TAG);
 
-export default function pdftotext(fileName, config = '') {
+export default function pdftotext(fileName, cmd = '') {
 
   return new Promise((resolve, reject) => {
     var tmpObj = tmp.fileSync(),
-        childProcess = exec(`pdftotext -bbox ${config} "${fileName}" ${tmpObj.name}`, (err, stdout) => {
+        childProcess = exec(`pdftotext -bbox ${cmd} "${fileName}" ${tmpObj.name}`, (err, stdout) => {
           if (err) {reject(err); return; }
 
           resolve(fs.readFileSync(tmpObj.name, {encoding: 'utf8'}));
