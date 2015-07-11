@@ -59,10 +59,24 @@ function removeDuplicateWords(words) {
           wordCountToDelete -= 1;
         }
 
-        // Create a new Text instance to be pused to processedWords.
-        //
-        let newXMin = word.xMin + word.width * (wordCountToDelete / word.text.length);
-        word = new Text(newXMin, word.xMax, word.yMin, word.yMax, word.text.slice(wordCountToDelete));
+        if (wordCountToDelete === lastText.length) {
+          // If the current word can replace last word entirely,
+          // remove the last word from processedWord[].
+          //
+          // This is to avoid calculating the approximate (and possibly inaccurate)
+          // bounding boxes.
+          //
+          processedWords.pop();
+
+        } else {
+          // Create a new Text instance to be pused to processedWords.
+          // Approximately calculate the bounding box size using number of
+          // characters in word.
+          //
+          let newXMin = word.xMin + word.width * (wordCountToDelete / word.text.length);
+          word = new Text(newXMin, word.xMax, word.yMin, word.yMax, word.text.slice(wordCountToDelete));
+        }
+
       }
     }
 

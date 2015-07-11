@@ -63,7 +63,7 @@ describe('processor', () => {
             OUTPUT = processor.removeDuplicateWords(INPUT);
 
       expect(OUTPUT.map(w => w.text)).to.deep.equal([
-        '本', '計畫已委',
+        '本計畫已委',
         '本案已於', '104', '年',
         '施政重點與', '期程'
       ]);
@@ -128,16 +128,21 @@ describe('processor', () => {
         new Text(150.600000, 220.544667, 155.855700, 169.821720, '交通壅塞問'),
         new Text(206.340000, 248.274400, 155.855700, 169.821720, '問題。'),
 
-        // -----
+        // ----- sets SPACE_THRESHOLD_PT
         new Text(103.200000, 110.187200, 547.355700, 561.321720, '('),
         new Text(103.320000, 152.368008, 547.355700, 561.321720, '(6)綠線'),
+
+        // ----- inaccurate boundingbox calculation may cause this to fail
+        new Text(105.960000, 112.947200, 705.875700, 719.841720, '('),
+        new Text(106.080000, 169.075867, 705.875700, 719.841720, '(1)居家服'),
       ],
       OUTPUT = processor.mergeWordsInLines(processor.removeDuplicateWords(INPUT));
 
-      expect(OUTPUT.length).to.equal(3);
+      expect(OUTPUT.length).to.equal(4);
       expect(OUTPUT[0].text).to.equal('A. 第一部分：龜山區山鶯路至桃');
       expect(OUTPUT[1].text).to.equal('4 線交通壅塞問題。');
       expect(OUTPUT[2].text).to.equal('(6)綠線');
+      expect(OUTPUT[3].text).to.equal('(1)居家服');
     });
 
   });
