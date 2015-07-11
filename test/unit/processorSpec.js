@@ -16,18 +16,18 @@ describe('processor', () => {
 
       // yMin and yMax should not be altered.
       OUTPUT.forEach((word, idx) => {
-        expect(word.yMin).to.equal(input[idx].yMin);
-        expect(word.yMax).to.equal(input[idx].yMax);
+        expect(word.yMin).to.equal(INPUT[idx].yMin);
+        expect(word.yMax).to.equal(INPUT[idx].yMax);
       });
 
       // The word that has duplicate text with previous word should be altered.
-      expect(OUTPUT[1].text).to.be('。');
-      expect(OUTPUT[3].text).to.be('民眾對');
-      expect(OUTPUT[4].text).to.be('濱海地區');
+      expect(OUTPUT[1].text).to.equal('。');
+      expect(OUTPUT[3].text).to.equal('民眾對');
+      expect(OUTPUT[4].text).to.equal('濱海地區');
 
       [1, 3, 4].forEach((idx) => {
-        expect(OUTPUT[idx].width).to.be.below(input[idx].width);
-        expect(OUTPUT[idx].xMin).to.be.above(input[idx].xMin);
+        expect(OUTPUT[idx].width).to.be.below(INPUT[idx].width);
+        expect(OUTPUT[idx].xMin).to.be.above(INPUT[idx].xMin);
       });
     });
 
@@ -58,7 +58,7 @@ describe('processor', () => {
             OUTPUT = processor.removeDuplicateWords(INPUT);
 
       expect(OUTPUT.map(w => w.text)).to.deep.equal([
-        '本', '計劃已委',
+        '本', '計畫已委',
         '本案已於', '104', '年'
       ]);
     });
@@ -87,7 +87,7 @@ describe('processor', () => {
             OUTPUT = processor.mergeWordsInLines(INPUT);
 
       // Text should merge
-      expect(OUTPUT.map(w => w.text)).to.deep.equal(['第二期(桃園火車站至機場捷運線山鼻站，長約 12 公里)建設。桃林', '鐵路於 101'])
+      expect(OUTPUT.map(w => w.text)).to.deep.equal(['第二期(桃園火車站至機場捷運線山鼻站，長約 12 公里)建設。桃林', '鐵路於 101']);
 
       // Bounding box should merge.
       //

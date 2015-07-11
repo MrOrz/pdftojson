@@ -18,10 +18,9 @@ export default async function pdftojson(pdfFileName, options = {}) {
 
   htmlData = await wrapper(pdfFileName, options.config);
   pages = parser.parse(htmlData);
-
-  // pages.forEach(page => {
-  //   page.words = mergeWordsInLines(removeDuplicateWords(page.words));
-  // });
+  pages.forEach(page => {
+    page.words = mergeWordsInLines(removeDuplicateWords(page.words));
+  });
 
   return pages;
 }

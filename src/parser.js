@@ -39,7 +39,7 @@ function parse(html, shouldSort) {
 
         return new Text(
           $word.attr('xmin'), $word.attr('xmax'),
-          $word.attr('ymin'), $word.attr('ymax'), $word.text()
+          $word.attr('ymin'), $word.attr('ymax'), $word.text().trim()
         );
       }).get()
     );
