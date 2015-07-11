@@ -10,7 +10,7 @@ Why a wrapper?
 
 Given this PDF file:
 
-<img src="http://i.imgur.com/KUEN9nL.png" style="border: 1px solid #ccc" alt="A PDF">
+![PDF sample](http://i.imgur.com/MRGE2bq.png)
 
 `pdftotext -bbox <myFile>` would generate this:
 
