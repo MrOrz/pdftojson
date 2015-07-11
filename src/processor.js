@@ -162,9 +162,9 @@ function sortWords(words) {
   return words.slice(0).sort((word1, word2) => {
     // Sort in order: yMin, yMax, xMin and xMax
 
-    if(word1.yMin === word2.yMin){
-      if(word1.yMax === word2.yMax){
-        if(word1.xMin === word2.xMin){
+    if (word1.yMin === word2.yMin) {
+      if (word1.yMax === word2.yMax) {
+        if (word1.xMin === word2.xMin) {
           return word1.xMax - word2.xMax;
         }
         return word1.xMin - word2.xMin;

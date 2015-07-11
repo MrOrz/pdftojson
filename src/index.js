@@ -20,7 +20,7 @@ export default async function pdftojson(pdfFileName, options = {}) {
   htmlData = await wrapper(pdfFileName, options.cmd);
   pages = parser.parse(htmlData);
   pages.forEach(page => {
-    if(options.sort) {
+    if (options.sort) {
       page.words = sortWords(page.words);
     }
     page.words = mergeWordsInLines(removeDuplicateWords(page.words));
