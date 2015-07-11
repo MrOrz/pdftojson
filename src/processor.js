@@ -3,7 +3,8 @@
 //
 import {Text} from './parser'
 
-const LINE_THRESHOLD_PT = 2; // pts difference to differentiate lines.
+const LINE_THRESHOLD_PT = 2, // pts difference to differentiate lines.
+      SPACE_THRESHOLD_PT = 2; // pts difference for two words to be separate
 
 function removeDuplicateWords(words) {
 
@@ -92,7 +93,7 @@ function mergeWordsInLines(words) {
   // by the software generates the PDF.
   //
   var processedLines = [],
-      textInLine = [words[0].text],
+      wordsInLine = [words[0]],
       lineXMin = words[0].xMin,
       lineXMax = words[0].xMax,
       lineYMin = words[0].yMin,
@@ -117,15 +118,10 @@ function mergeWordsInLines(words) {
       if (word.yMax > lineYMax) {
         lineYMax = word.yMax;
       }
-      textInLine.push(word.text);
+      wordsInLine.push(word);
 
     } else {
-      // Push last line in processedLines
-      //
-      processedLines.push(new Text(
-        lineXMin, lineXMax, lineYMin, lineYMax,
-        textInLine.join(' ')
-      ));
+      pushLineToProcessed();
 
       // Reset line data
       //
@@ -135,16 +131,31 @@ function mergeWordsInLines(words) {
         word.xMin, word.xMax, word.yMin, word.yMax
       ];
 
-      textInLine = [word.text];
+      wordsInLine = [word];
     }
   }
-
-  processedLines.push(new Text(
-    lineXMin, lineXMax, lineYMin, lineYMax,
-    textInLine.join(' ')
-  ));
+  pushLineToProcessed();
 
   return processedLines;
+
+  // Push last line in processedLines
+  //
+  function pushLineToProcessed() {
+
+    var text = wordsInLine[0].text;
+
+    for (let i = 1; i < wordsInLine.length; i += 1) {
+      // Add space in between only when there is space between two bounding
+      // boxes.
+      //
+      if (wordsInLine[i].xMin - wordsInLine[i - 1].xMax > SPACE_THRESHOLD_PT) {
+        text += ' ';
+      }
+      text += wordsInLine[i].text;
+    }
+
+    processedLines.push(new Text(lineXMin, lineXMax, lineYMin, lineYMax, text));
+  }
 }
 
 export default {removeDuplicateWords, mergeWordsInLines};

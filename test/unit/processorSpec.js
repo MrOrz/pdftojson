@@ -109,8 +109,23 @@ describe('processor', () => {
       });
 
     });
-    /*
-    */
+
+    it('should add space only when two boxes has space in betweeen', () => {
+      const INPUT = [
+        new Text(127.740000, 141.746541, 205.835700, 219.801720, 'A.'),
+        /* Space should be preserved here */
+        new Text(145.740000, 173.754480, 205.835700, 219.801720, '第一'),
+        new Text(159.780000, 215.694400, 205.835700, 219.801720, '一部分：'),
+        /* No space should be inserted here */
+        new Text(215.520000, 271.434369, 205.835700, 219.801720, '龜山區山'),
+        new Text(257.880000, 327.824667, 205.835700, 219.801720, '山鶯路至桃')
+      ],
+      OUTPUT = processor.mergeWordsInLines(processor.removeDuplicateWords(INPUT));
+
+      expect(OUTPUT.length).to.equal(1);
+      expect(OUTPUT[0].text).to.equal('A. 第一部分：龜山區山鶯路至桃');
+    });
+
   });
 });
 /*
