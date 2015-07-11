@@ -118,12 +118,26 @@ describe('processor', () => {
         new Text(159.780000, 215.694400, 205.835700, 219.801720, '一部分：'),
         /* No space should be inserted here */
         new Text(215.520000, 271.434369, 205.835700, 219.801720, '龜山區山'),
-        new Text(257.880000, 327.824667, 205.835700, 219.801720, '山鶯路至桃')
+        new Text(257.880000, 327.824667, 205.835700, 219.801720, '山鶯路至桃'),
+
+        // -----
+
+        new Text(126.060000, 133.047200, 155.855700, 169.821720, '4'),
+        /* Space should be preserved here */
+        new Text(136.560000, 164.574480, 155.855700, 169.821720, '線交'),
+        new Text(150.600000, 220.544667, 155.855700, 169.821720, '交通壅塞問'),
+        new Text(206.340000, 248.274400, 155.855700, 169.821720, '問題。'),
+
+        // -----
+        new Text(103.200000, 110.187200, 547.355700, 561.321720, '('),
+        new Text(103.320000, 152.368008, 547.355700, 561.321720, '(6)綠線'),
       ],
       OUTPUT = processor.mergeWordsInLines(processor.removeDuplicateWords(INPUT));
 
-      expect(OUTPUT.length).to.equal(1);
+      expect(OUTPUT.length).to.equal(3);
       expect(OUTPUT[0].text).to.equal('A. 第一部分：龜山區山鶯路至桃');
+      expect(OUTPUT[1].text).to.equal('4 線交通壅塞問題。');
+      expect(OUTPUT[2].text).to.equal('(6)綠線');
     });
 
   });

@@ -4,7 +4,7 @@
 import {Text} from './parser'
 
 const LINE_THRESHOLD_PT = 2, // pts difference to differentiate lines.
-      SPACE_THRESHOLD_PT = 2; // pts difference for two words to be separate
+      SPACE_THRESHOLD_PT = 3; // pts difference for two words to be separate
 
 function removeDuplicateWords(words) {
 
