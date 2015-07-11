@@ -1,6 +1,6 @@
 import wrapper from './pdftotext-wrapper';
 import parser from './parser';
-import {removeDuplicateWords, mergeWordsInLines} from './processor';
+import {sortWords, removeDuplicateWords, mergeWordsInLines} from './processor';
 
 // Unhandled rejection handling
 //
@@ -20,6 +20,9 @@ export default async function pdftojson(pdfFileName, options = {}) {
   htmlData = await wrapper(pdfFileName, options.cmd);
   pages = parser.parse(htmlData);
   pages.forEach(page => {
+    if(options.sort) {
+      page.words = sortWords(page.words);
+    }
     page.words = mergeWordsInLines(removeDuplicateWords(page.words));
   });
 

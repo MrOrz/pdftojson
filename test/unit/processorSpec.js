@@ -141,6 +141,21 @@ describe('processor', () => {
     });
 
   });
+
+  describe('#sortWords', () => {
+    it('should sort the words', () => {
+      const INPUT = [
+        new Text(5, 20, 0, 10, '3'),
+        new Text(0, 10, 5, 10, '5'),
+        new Text(0, 20, 0, 10, '2'),
+        new Text(0, 10, 0, 20, '4'),
+        new Text(0, 10, 0, 10, '1'),
+      ],
+      OUTPUT = processor.sortWords(INPUT);
+
+      expect(OUTPUT.map(w => w.text)).to.deep.equal(['1', '2', '3', '4', '5'])
+    })
+  });
 });
 /*
 */
