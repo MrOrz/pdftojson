@@ -5,14 +5,14 @@ pdftojson
 
 **pdftojson** is a `pdftotext` wrapper that generates JSON with bounding box data. It takes care of overlapping duplicated characters, which often exists in MS-Word-generated PDF files with floating images and text.
 
-Why a wrapper?
+Why bother a wrapper for `pdftotext`?
 ------------------------------
 
-Given this PDF file:
+Consider this PDF file:
 
 ![PDF sample](http://i.imgur.com/MRGE2bq.png)
 
-`pdftotext -bbox <myFile>` would generate this:
+`pdftotext -bbox theFile.pdf` would generate this:
 
 ```html
 ...
@@ -26,13 +26,13 @@ Given this PDF file:
 <word xMin="124.680000" yMin="572.375700" xMax="166.675867" yMax="586.341720">共運輸</word>
 <word xMin="152.700000" yMin="572.375700" xMax="222.644667" yMax="586.341720">輸系統發展</word>
 <word xMin="208.440000" yMin="572.375700" xMax="278.395867" yMax="586.341720">展委託可行</word>
-<word xMin="264 .840000" yMin="572.375700" xMax="320.813062" yMax="586.341720">行性研究</word>
+<word xMin="264.840000" yMin="572.375700" xMax="320.813062" yMax="586.341720">行性研究</word>
 ...
 ```
 
-Note that some words are overlapping and duplicate. PDF layout engines sometimes generate these quirks when imags and text are mixed in a page.
+`pdftotext` does a great job "undoing" physical layout (columns, hyphenation, etc) of a PDF document. However, in its result there are some overlapping and duplicate words. PDF layout engines sometimes generate these quirks when images and text are mixed within a page.
 
-On the other hand, `pdftojson <myFile>` generates this:
+On the other hand, `pdftojson theFile.pdf` could generate this:
 
 ```js
 ...
@@ -52,7 +52,6 @@ On the other hand, `pdftojson <myFile>` generates this:
 }
 ...
 ```
-
 
 Install
 -------
@@ -82,9 +81,9 @@ $ pdftojson -c "-f 3 -l 6" some.pdf
 ### NodeJS Library
 
 The library exposes a single function that takes the name of a PDF file
-and returns a promise that resolves to .
+and returns a promise.
 
-```
+```js
 import pdftojson from 'pdftojson';
 
 pdftojson("./some.pdf").then((output) => {
@@ -96,22 +95,22 @@ pdftojson("./some.pdf").then((output) => {
 
 All numeric values are in `pt`.
 
-```
+```js
 [
-  { #: Page
-    width: (Number) page width
-    height: (Number) page height
+  { //: Page
+    width: (Number) page width,
+    height: (Number) page height,
     words: [
       {
-         text: (String) the text enclosed in the bounding box
+        text: (String) the text enclosed in the bounding box,
 
-         # All coordinates calculated from top-left corner of the page
-         xMin: (Number) left edge of the bounding box
-         xMax: (Number) right edge of the bounding box
-         yMin: (Number) top edge of the bounding box
-         yMax: (Number) bottom edge of the bounding box
-       }, ...
+        // All coordinates calculated from top-left corner of the page
+        xMin: (Number) left edge of the bounding box,
+        xMax: (Number) right edge of the bounding box,
+        yMin: (Number) top edge of the bounding box,
+        yMax: (Number) bottom edge of the bounding box
+      }, // ...
     ]
-  }, ...
+  }, // ...
 ]
 ```
