@@ -9,4 +9,11 @@ describe('pdftotext-wrapper', () => {
   it('should invoke pdftotext', () => {
     return expect(wrapper('test/fixture/oneword.pdf')).to.eventually.include('FOO_BAR');
   });
+
+  it('should handle large PDF files', () => {
+    return wrapper('test/fixture/large.pdf').then(html => {
+      expect(html).to.be.a('string');
+    });
+  });
+
 });
