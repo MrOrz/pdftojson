@@ -16,4 +16,10 @@ describe('pdftotext-wrapper', () => {
     });
   });
 
+  it('should pass command through', () => {
+    return wrapper('test/fixture/large.pdf', '-l 1').then(html => {
+      expect(html.match(/<page/gi).length).to.equal(1);
+    });
+  });
+
 });
