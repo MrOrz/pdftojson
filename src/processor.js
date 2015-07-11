@@ -19,6 +19,7 @@ function removeDuplicateWords(words) {
   // by the software generates the PDF.
   //
   var processedWords = [words[0]],
+      lastWord = words[0],
       lastRoundedYMin = Math.round(words[0].yMin),
       lastRoundedYMax = Math.round(words[0].yMax),
       lastRoundedXMin = Math.round(words[0].xMin),
@@ -32,7 +33,7 @@ function removeDuplicateWords(words) {
         roundedXMax = Math.round(word.xMax);
 
     if (lastRoundedYMin !== roundedYMin || lastRoundedYMax !== roundedYMax) {
-      // Not in the same line, do nothing
+      // Not in the same line, just update line data
       [lastRoundedYMin, lastRoundedYMax] = [roundedYMin, roundedYMax];
 
     } else if (roundedXMin < lastRoundedXMax) {
@@ -44,7 +45,7 @@ function removeDuplicateWords(words) {
         continue;
 
       } else {
-        let lastText = words[i - 1].text,
+        let lastText = lastWord.text,
             overlappingWidth = lastRoundedXMax - roundedXMin,
             wordCountToDelete = Math.round(word.text.length * overlappingWidth / word.width);
 
@@ -64,7 +65,10 @@ function removeDuplicateWords(words) {
       }
     }
 
-    [lastRoundedXMin, lastRoundedXMax] = [roundedXMin, roundedXMax];
+    // Update horizontal data and last word before pushing a valid word
+    // into processedWords[].
+    //
+    [lastRoundedXMin, lastRoundedXMax, lastWord] = [roundedXMin, roundedXMax, word];
     processedWords.push(word);
   }
 
