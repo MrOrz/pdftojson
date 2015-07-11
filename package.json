@@ -1,6 +1,6 @@
 {
   "name": "pdftojson",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "pdftotext wrapper that generates JSON with bounding box data. Takes care of duplicate characters.",
   "main": "lib/index.js",
   "scripts": {
