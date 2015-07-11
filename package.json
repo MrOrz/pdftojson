@@ -6,6 +6,7 @@
   "scripts": {
     "watch": "npm run build -- --watch --source-maps inline",
     "build": "babel src --out-dir lib --stage $npm_package_config_stage --optional runtime",
+    "prepublish": "NODE_ENV=production npm run build",
     "test": "mocha --require ./config/mocha-babel test/unit/*.js",
     "travis": "istanbul cover _mocha --report lcovonly -- --require ./config/mocha-babel test/unit/*.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "jscs": "jscs . -x"
@@ -31,20 +32,20 @@
   "homepage": "https://github.com/MrOrz/pdftojson",
   "dependencies": {
     "cheerio": "^0.19.0",
-    "coveralls": "^2.11.2",
     "debug": "^2.2.0",
     "es6-promisify": "^2.0.0",
-    "mocha-lcov-reporter": "0.0.2",
+    "babel-runtime": "^5.6.15",
     "yargs": "^3.15.0"
   },
   "devDependencies": {
     "babel": "^5.6.14",
-    "babel-runtime": "^5.6.15",
     "chai": "^3.0.0",
     "chai-as-promised": "^5.1.0",
     "esprima-fb": "^15001.1.0-dev-harmony-fb",
     "istanbul": "git://github.com/gotwarlost/istanbul#source-map",
     "jscs": "^1.13.1",
+    "coveralls": "^2.11.2",
+    "mocha-lcov-reporter": "0.0.2",
     "mocha": "^2.2.5"
   }
 }
