@@ -88,19 +88,29 @@ describe('processor', () => {
               new Text(416.500536, 430.494516, 694.295316, 708.261336, '12'),
               new Text(434.003496, 538.951356, 694.295316, 708.261336, '公里)建設。桃林'),
               new Text(126.000330, 167.968290, 719.315322, 733.281342, '鐵路於'),
-              new Text(171.506628, 192.518568, 719.315322, 733.281342, '101')
+              new Text(171.506628, 192.518568, 719.315322, 733.281342, '101'),
+
+              // ----- English / Chinese mixed line height
+              new Text(65.184, 69.85932,  94.71068, 107.34668, '('),
+              new Text(69.744, 83.784,    92.45396, 106.49396, '一'),
+              new Text(83.904, 88.57932,  94.71068, 107.34668, ')'),
+              new Text(88.464, 200.65764, 92.45396, 106.49396, '建構軌道運輸路網')
             ],
             OUTPUT = processor.mergeWordsInLines(INPUT);
 
       // Text should merge
-      expect(OUTPUT.map(w => w.text)).to.deep.equal(['第二期(桃園火車站至機場捷運線山鼻站，長約 12 公里)建設。桃林', '鐵路於 101']);
+      expect(OUTPUT.map(w => w.text)).to.deep.equal([
+        '第二期(桃園火車站至機場捷運線山鼻站，長約 12 公里)建設。桃林', '鐵路於 101',
+        '(一)建構軌道運輸路網'
+      ]);
 
       // Bounding box should merge.
       //
       [
         //  xMin        xMax        yMin        yMax
         [126.000330, 538.951356, 694.295316, 708.261336],
-        [126.000330, 192.518568, 719.315322, 733.281342]
+        [126.000330, 192.518568, 719.315322, 733.281342],
+        [65.184,     200.65764,  92.45396,   107.34668 ]
 
       ].forEach((expectedBox, idx) => {
         var {xMin, xMax, yMin, yMax} = OUTPUT[idx];
@@ -135,21 +145,14 @@ describe('processor', () => {
         // ----- inaccurate boundingbox calculation may cause this to fail
         new Text(105.960000, 112.947200, 705.875700, 719.841720, '('),
         new Text(106.080000, 169.075867, 705.875700, 719.841720, '(1)居家服'),
-
-        // ----- English / Chinese mixed line height
-        new Text(65.184, 69.85932,  94.71068, 107.34668, '('),
-        new Text(69.744, 83.784,    92.45396, 106.49396, '一'),
-        new Text(83.904, 88.57932,  94.71068, 107.34668, ')'),
-        new Text(88.464, 200.65764, 92.45396, 106.49396, '建構軌道運輸路網')
       ],
       OUTPUT = processor.mergeWordsInLines(processor.removeDuplicateWords(INPUT));
 
-      expect(OUTPUT, 'OUTPUT').to.have.length(5);
+      expect(OUTPUT, 'OUTPUT').to.have.length(4);
       expect(OUTPUT[0].text).to.equal('A. 第一部分：龜山區山鶯路至桃');
       expect(OUTPUT[1].text).to.equal('4 線交通壅塞問題。');
       expect(OUTPUT[2].text).to.equal('(6)綠線');
       expect(OUTPUT[3].text).to.equal('(1)居家服');
-      expect(OUTPUT[4].text).to.equal('(一)建構軌道運輸路網');
     });
 
   });
