@@ -3,7 +3,7 @@
 //
 import {Text} from './parser'
 
-const LINE_THRESHOLD_PT = 2, // pts difference to differentiate lines.
+const LINES_THRESHOLD = 0.2, // # line-height difference to differentiate lines.
       SPACE_THRESHOLD_PT = 3; // pts difference for two words to be separate
 
 function removeDuplicateWords(words) {
@@ -114,10 +114,11 @@ function mergeWordsInLines(words) {
       lineYMax = words[0].yMax;
 
   for (let i = 1; i < wordCount; i += 1) {
-    let word = words[i];
+    let word = words[i],
+        lineThresholdInPt = LINES_THRESHOLD * (lineYMax - lineYMin);
 
-    if (Math.abs(lineYMin - word.yMin) < LINE_THRESHOLD_PT &&
-        Math.abs(lineYMax - word.yMax) < LINE_THRESHOLD_PT) {
+    if (Math.abs(lineYMin - word.yMin) < lineThresholdInPt &&
+        Math.abs(lineYMax - word.yMax) < lineThresholdInPt) {
       // In the same line. Update line data.
       // Note: Chinese & English words in a same line may have different
       // yMin and yMax. Thus we use THRESHOLD to determine if two words

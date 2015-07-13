@@ -135,14 +135,21 @@ describe('processor', () => {
         // ----- inaccurate boundingbox calculation may cause this to fail
         new Text(105.960000, 112.947200, 705.875700, 719.841720, '('),
         new Text(106.080000, 169.075867, 705.875700, 719.841720, '(1)居家服'),
+
+        // ----- English / Chinese mixed line height
+        new Text(65.184, 69.85932,  94.71068, 107.34668, '('),
+        new Text(69.744, 83.784,    92.45396, 106.49396, '一'),
+        new Text(83.904, 88.57932,  94.71068, 107.34668, ')'),
+        new Text(88.464, 200.65764, 92.45396, 106.49396, '建構軌道運輸路網')
       ],
       OUTPUT = processor.mergeWordsInLines(processor.removeDuplicateWords(INPUT));
 
-      expect(OUTPUT.length).to.equal(4);
+      expect(OUTPUT, 'OUTPUT').to.have.length(5);
       expect(OUTPUT[0].text).to.equal('A. 第一部分：龜山區山鶯路至桃');
       expect(OUTPUT[1].text).to.equal('4 線交通壅塞問題。');
       expect(OUTPUT[2].text).to.equal('(6)綠線');
       expect(OUTPUT[3].text).to.equal('(1)居家服');
+      expect(OUTPUT[4].text).to.equal('(一)建構軌道運輸路網');
     });
 
   });
