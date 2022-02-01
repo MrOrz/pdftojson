@@ -8,7 +8,7 @@ import {sortWords, removeDuplicateWords, mergeWordsInLines} from './processor';
 process.on('unhandledRejection', (reason) => {
   console.log('Unhandled Rejection, reason:', reason);
   if (reason.stack) {
-    console.err(reason.stack);
+    console.error(reason.stack);
   }
 });
 
